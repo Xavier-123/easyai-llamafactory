@@ -1,0 +1,9 @@
+export_device: auto
+export_dir: E:\Inspur\GPU\mass\easyai-llamafactory\output\qwen2.5_instruct_gptq_int2
+export_legacy_format: false
+export_quantization_bit: 2
+export_quantization_dataset: E:\Inspur\GPU\mass\easyai-llamafactory\tmp\data\c4_demo.jsonl
+export_size: 1
+model_name_or_path: E:\models\Qwen\Qwen2___5-0___5B-Instruct
+template: qwen
+trust_remote_code: true

@@ -1,0 +1,12 @@
+### model
+model_name_or_path: E:\models\Qwen\Qwen2___5-0___5B-Instruct
+template: qwen3
+trust_remote_code: true
+
+### export
+export_dir: output/qwen3_gptq_int2
+export_quantization_bit: 2                            #量化位数[8, 4, 3, 2]
+export_quantization_dataset: data/c4_demo.jsonl       #量化校准数据集
+export_size: 1                                        #最大导出模型文件大小
+export_device: cpu                                    # 导出设备，还可以为: [cpu, auto]
+export_legacy_format: false                           #是否使用旧格式导出
