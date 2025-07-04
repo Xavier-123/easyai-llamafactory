@@ -85,6 +85,13 @@ def update_args(dataset_dir, args=None) -> dict:
 def check_args(args):
     if args["model_name_or_path"] is None:
         raise "model is Null"
+    else:
+        import glob
+        model_file_list = glob.glob(args["model_name_or_path"] + "/**/*", recursive=True)
+        logger.info(model_file_list)
+        if len(model_file_list) <= 2:
+            raise f"model is not found"
+
 
     if args["stage"] not in ["sft", "dpo", "ppo"]:
         raise f"{args['stage']} is not exist"
@@ -105,6 +112,7 @@ def train(dataset_dir, is_enable_train):
 
     # 开始训练
     if is_enable_train:
+        logger.info("run_exp: ")
         run_exp(_train_args)
 
     return _train_args

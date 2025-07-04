@@ -44,15 +44,15 @@ def main():
 if __name__ == '__main__':
     # print(os.environ.get("TRAIN_TEST_TYPE"))
     if os.environ.get("DO_TRAIN"):
-        logger.info("train_args:")
-        logger.info(train_args)
+        print("train_args:")
+        print(train_args)
     if os.environ.get("DO_EVAL"):
-        logger.info("eval_args:")
-        logger.info(eval_args)
+        print("eval_args:")
+        print(eval_args)
     if os.environ.get("DO_MERGE"):
-        logger.info("merge_args:")
-        logger.info(merge_args)
+        print("merge_args:")
+        print(merge_args)
     if os.environ.get("DO_QUANTIZATION"):
-        logger.info("quantization_args:")
-        logger.info(quantization_args)
+        print("quantization_args:")
+        print(quantization_args)
     main()
