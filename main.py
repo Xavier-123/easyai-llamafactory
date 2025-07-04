@@ -23,14 +23,14 @@ def main():
         print("-" * 50 + " 开始训练 " + "-" * 50)
         train_args = train(dataset_dir, is_enable_train)
 
-        # 评估
-        if 0 < float(os.environ.get("TRAIN_TEST_RATIO")) < 1:
-            print("-" * 50 + " 开始评估 " + "-" * 50)
-            eval_args = evaluation(train_args, is_enable_train, is_enable_eval)
+        # # 评估
+        # if int(os.environ.get("TRAINTESTTYPE")) == 1:
+        #     print("-" * 50 + " 开始评估 " + "-" * 50)
+        #     eval_args = evaluation(train_args, is_enable_train, is_enable_eval)
 
         # 结果解析
         print("-" * 50 + " 解析结果 " + "-" * 50)
-        if 0 < float(os.environ.get("TRAIN_TEST_RATIO")) < 1:
+        if 0 < float(os.environ.get("TRAINTESTRATIO")) < 1:
             result_analysis(train_args, eval_args, is_enable_eval)
         else:
             result_analysis(train_args, is_enable_eval=False)

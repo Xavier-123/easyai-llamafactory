@@ -53,7 +53,8 @@ def read_all_jsonl(jsonl_list):
 
 def dataset_conversion():
     # data_output_dir, is_enable_train, is_enable_eval = os.environ.get("DATA_OUTPUT_DIR"), True, True
-    data_output_dir, is_enable_train, is_enable_eval = r"/easyai-llamafactory/tmp/data/tmp", True, True
+    # data_output_dir, is_enable_train, is_enable_eval = r"/easyai-llamafactory/tmp/data/tmp", True, True
+    data_output_dir, is_enable_train, is_enable_eval = os.path.join(r"E:\Inspur\GPU\mass\easyai-llamafactory\tmp\train", os.environ.get("STAGE")), True, True
     stage = train_args["stage"]
 
     # 判断数据格式
@@ -71,18 +72,20 @@ def dataset_conversion():
 
     # 格式1 - 不需要处理
     # train_test_type=0, 按比例划分数据集; train_test_type=1,独立测试集;
-    env_train_test_type = float(os.environ.get("TRAIN_TEST_TYPE"))
+    # env_train_test_type = float(os.environ.get("TRAIN_TEST_TYPE"))
+    env_train_test_type = float(os.environ.get("TRAINTESTTYPE"))
     if not env_train_test_type:
-        """处理按比例分的情况"""
-        env_train_dataset_path = os.environ.get("TRAIN_DATASET_PATH")
-        # env_train_dataset_path = "/data/dpo_zh_demo.json"
+        """
+        处理按比例分的情况
+        读取 TRAINDATASETPATH 目录下的数据，按照 TRAINTESTRATIO 的比例划分训练集和测试集
+        """
+        env_train_dataset_path = os.environ.get("TRAINDATASETPATH")
         jsonl_list = recursive_jsonl(env_train_dataset_path)
         json_item_list = read_all_jsonl(jsonl_list)
         random.shuffle(json_item_list)
 
         # 读取训练集测试集比例
-        env_trainTestRatio = float(os.environ.get("TRAIN_TEST_RATIO"))
-        # env_trainTestRatio = 0.99
+        env_trainTestRatio = float(os.environ.get("TRAINTESTRATIO"))
         train_Ratio = min(env_trainTestRatio, 1)
         test_Ratio = max(1 - train_Ratio, 0)
 
@@ -105,15 +108,19 @@ def dataset_conversion():
                     train_list.append(item)
 
     else:
-        """处理固定的训练集、测试集"""
+        """
+        处理固定的训练集、测试集
+        TRAINDATASETPATH - 训练集
+        TESTDATASETPATH  - 测试集
+        """
         # 读取trainDataSetPath下的所有jsonl数据集, 训练集
-        env_train_dataset_path = os.environ.get("TRAIN_DATASET_PATH")
+        env_train_dataset_path = os.environ.get("TRAINDATASETPATH")
         train_jsonl_list = recursive_jsonl(env_train_dataset_path)
         train_json_item_list = read_all_jsonl(train_jsonl_list)
         random.shuffle(train_json_item_list)
 
         # 读取testDataSetPath下的所有jsonl数据集, 测试集
-        env_test_dataset_path = os.environ.get("TEST_DATASET_PATH")
+        env_test_dataset_path = os.environ.get("TESTDATASETPATH")
         test_jsonl_list = recursive_jsonl(env_test_dataset_path)
         test_json_item_list = read_all_jsonl(test_jsonl_list)
         random.shuffle(test_json_item_list)

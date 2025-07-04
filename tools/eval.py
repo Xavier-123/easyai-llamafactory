@@ -20,7 +20,8 @@ def evaluation(train_args, is_enable_train=True, is_enable_eval=True, eval_dir="
     eval_args["template"] = train_args["template"]
     eval_args["model_name_or_path"] = train_args["model_name_or_path"]
     eval_args["dataset_dir"] = train_args["dataset_dir"]
-    eval_args["adapter_name_or_path"] = os.environ.get("OUTPUT_DIR")
+    # eval_args["adapter_name_or_path"] = os.environ.get("OUTPUT_DIR")
+    eval_args["adapter_name_or_path"] = os.environ.get("SAVEMODELPATH")      # 平台的模型保存目录
 
     # eval_args = dict()
     # if is_enable_eval:
@@ -66,6 +67,8 @@ def evaluation(train_args, is_enable_train=True, is_enable_eval=True, eval_dir="
 
     # 开始评估
     try:
+        logger.info("************************************************** eval_args **************************************************")
+        logger.info(eval_args)
         run_exp(eval_args)
     except Exception as e:
         raise e

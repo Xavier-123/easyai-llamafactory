@@ -62,7 +62,8 @@ def update_args(dataset_dir, args=None) -> dict:
     else:
         args["template"] = "default"
 
-    args["model_name_or_path"] = os.environ.get("BASE_MODEL_PATH")
+    # args["model_name_or_path"] = os.environ.get("BASE_MODEL_PATH")
+    args["model_name_or_path"] = os.environ.get("BASEMODELPATH")
     args["dataset_dir"] = dataset_dir
     args["dataset"] = "train"
     args["dataloader_num_workers"] = 0
